@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internship Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px;
+            color: #333;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        form input, form select, form button {
+            padding: 10px;
+            margin: 10px 5px;
+            font-size: 1em;
+        }
+        form button, input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        form button:hover, input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto 40px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .action-form {
+            display: inline;
+        }
+        .top-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .top-bar input, .top-bar select {
+            padding: 8px;
+            font-size: 1em;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Internship Tracker</h1>
+
+ <form action="/add" method="post">
+  <label for="company">Company Name:</label>
+  <input type="text" id="company" name="company" required><br>
+
+  <label for="role">Role:</label>
+  <input type="text" id="role" name="role" required><br>
+
+  <label for="eligibility">Eligibility :</label>
+  <input type="text" id="eligibility" name="eligibility"><br>
+
+  <label for="stipend">Stipend:</label>
+  <input type="text" id="stipend" name="stipend"><br>
+
+  <label for="deadline">Deadline:</label>
+  <input type="date" id="deadline" name="deadline"><br>
+
+  <label for="status">Status:</label>
+  <select id="status" name="status">
+    <option value="Applied">Applied</option>
+    <option value="Interviewing">Interviewing</option>
+    <option value="Offer">Offer</option>
+    <option value="Rejected">Rejected</option>
+  </select><br>
+
+  <input type="submit" value="Add Internship">
+</form>
+
+
+    <h2>My Applications</h2>
+<table>
+    <tr>
+        <th>Company</th>
+        <th>Role</th>
+        <th>Eligibility</th>
+        <th>Stipend</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for internship in internships %}
+    <tr>
+        <td>{{ internship['Company'] }}</td>
+        <td>{{ internship['Role'] }}</td>
+        <td>{{ internship['Eligibility'] }}</td>
+        <td>{{ internship['Stipend'] }}</td>
+        <td>{{ internship['Deadline'] }}</td>
+        <td>{{ internship['Status'] }}</td>
+        <td>
+            <form action="/delete" method="post" style="display:inline;">
+                <input type="hidden" name="index" value="{{ loop.index0 }}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
